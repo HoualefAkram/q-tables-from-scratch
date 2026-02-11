@@ -36,10 +36,8 @@ class QTable:
                 reward = Utils.get_reward_from_sar(
                     action=q.action, state=q.state, sars=self.enviroment.sars
                 )
-                new_q_value = (
-                    q.value
-                    + learning_rate * (reward + discount_factor * max_next_q)
-                    - q.value
+                new_q_value = q.value + learning_rate * (
+                    reward + discount_factor * max_next_q - q.value
                 )
 
                 q = q.copyWith(value=new_q_value)
