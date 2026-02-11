@@ -16,6 +16,9 @@ class QValue:
     def __str__(self):
         return f"q[{self.state.id},{self.action.id}] = {self.value}\n"
 
+    def set_value(self, new_value: float):
+        self.value = new_value
+
     def copyWith(
         self,
         state: Optional[State] = None,

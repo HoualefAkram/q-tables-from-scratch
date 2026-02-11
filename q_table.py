@@ -1,6 +1,7 @@
 from q_value import QValue
 from environment import Enviroment
 from utils import Utils
+from random import choice
 
 
 class QTable:
@@ -16,30 +17,43 @@ class QTable:
     def __repr__(self):
         return f"QTable(q_values: {self.q_values})"
 
-    def train(self, iterations: int, learning_rate: float, discount_factor: float):
-        for i in range(iterations):
-            # print(f"iteration: {i}/{iterations}")
-            counter = 0
-            for q in self.q_values:
-                next_state_id = q.state.id + 1
+    def train(self, episodes: int, learning_rate: float, discount_factor: float):
+        for episode in range(episodes):
+            print(f"Episode {episode}/{episodes}")
+            run = True
+            current_state = choice(self.enviroment.states)  # start point
 
-                if next_state_id == len(self.enviroment.states):
-                    # last state
+            steps = 0  # safety in case of an infinite loop
+            max_steps = 400
+
+            while run:
+                random_action = choice(self.enviroment.actions)
+                sar = Utils.get_sar(
+                    action=random_action,
+                    state=current_state,
+                    sars=self.enviroment.sars,
+                )
+                next_state = sar.next_state
+                max_q_next_state = max(
+                    [j.value for j in self.q_values if j.state == next_state]
+                )
+                reward = sar.reward
+
+                current_q = [
+                    q
+                    for q in self.q_values
+                    if (q.state == current_state and q.action == random_action)
+                ][0]
+                q_val = current_q.value + learning_rate * (
+                    reward + discount_factor * max_q_next_state - current_q.value
+                )
+                current_q.set_value(new_value=q_val)
+
+                if next_state.is_terminal:
+                    run = False
                     continue
 
-                next_state_q_vals = [
-                    q_val for q_val in self.q_values if q_val.state.id == next_state_id
-                ]
-
-                max_next_q = max([q.value for q in next_state_q_vals])
-
-                reward = Utils.get_reward_from_sar(
-                    action=q.action, state=q.state, sars=self.enviroment.sars
-                )
-                new_q_value = q.value + learning_rate * (
-                    reward + discount_factor * max_next_q - q.value
-                )
-
-                q = q.copyWith(value=new_q_value)
-                self.q_values[counter] = q
-                counter += 1
+                current_state = next_state
+                steps += 1
+                if steps >= max_steps:
+                    break
