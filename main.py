@@ -1,9 +1,6 @@
 # Q tables from scratch
 from q_table import QTable
 from environment import Enviroment
-from sar import Sar
-from state import State
-from action import Action
 
 n_state = 16
 n_action = 4
@@ -25,4 +22,4 @@ enviroment = Enviroment(n_state=16, n_action=4, rewards=rewards)
 table = QTable(enviroment=enviroment)
 
 
-print(enviroment.sars)
+print(table)

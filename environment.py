@@ -1,4 +1,3 @@
-from typing import Optional
 from sar import Sar
 from state import State
 from action import Action
