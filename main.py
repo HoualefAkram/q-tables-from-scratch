@@ -2,7 +2,10 @@
 from q_table import QTable
 from environment import Enviroment
 
-enviroment = Enviroment(n_actions=4, n_states=4)
+actions_description = ["Move Left", "Move Down", "Move Right", "Move Up"]
+
+enviroment = Enviroment(n_actions=4, n_states=16, descriptions=actions_description)
 table = QTable(enviroment=enviroment)
+
 
 print(table)
