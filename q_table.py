@@ -1,13 +1,14 @@
 from q_value import QValue
+from environment import Enviroment
 
 
 class QTable:
 
-    def __init__(self, n_actions: int, n_states: int):
+    def __init__(self, enviroment: Enviroment):
         self.q_values: list[QValue] = []
-        for action in range(n_actions):
-            for state in range(n_states):
-                q_value: QValue = QValue(state_number=state, action_number=action)
+        for action in enviroment.actions:
+            for state in enviroment.states:
+                q_value: QValue = QValue(state=state, action=action)
                 self.q_values.append(q_value)
 
     def __repr__(self):
