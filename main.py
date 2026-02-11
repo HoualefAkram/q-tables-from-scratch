@@ -19,7 +19,10 @@ for p in positive_index:
 
 terminal_state_id = 15
 enviroment = Enviroment(
-    n_state=16, n_action=4, rewards=rewards, terminal_state_id=terminal_state_id
+    n_state=n_state,
+    n_action=n_action,
+    rewards=rewards,
+    terminal_state_id=terminal_state_id,
 )
 
 
