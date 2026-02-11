@@ -1,30 +1,21 @@
-from action import Action
-from state import State
 from typing import Optional
+from sar import Sar
 
 
 class Enviroment:
 
     def __init__(
         self,
-        n_actions: int,
-        n_states: int,
+        states_actions_rewards: list[Sar],
         actions_description: Optional[list[str]] = None,
     ):
-        self.actions = []
         self.states = []
+        self.actions = []
 
-        for a in range(n_actions):
-            self.actions.append(
-                Action(
-                    id=a,
-                    description=(
-                        actions_description[a]
-                        if actions_description is not None
-                        else None
-                    ),
-                )
-            )
-
-        for s in range(n_states):
-            self.states.append(State(id=s))
+        for i in states_actions_rewards:
+            state = i.state
+            action = i.action
+            if state not in self.states:
+                self.states.append(state)
+            if action not in self.actions:
+                self.actions.append(action)
