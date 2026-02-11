@@ -22,7 +22,7 @@ class Enviroment:
 
         for s in range(n_state):
             for a in range(n_action):
-                reward = s * n_action + a
+                reward = rewards[s * n_action + a]
                 state = State(id=s)
                 action = Action(id=a)
                 sar = Sar(state=state, action=action, reward=reward)

@@ -25,4 +25,4 @@ enviroment = Enviroment(n_state=16, n_action=4, rewards=rewards)
 table = QTable(enviroment=enviroment)
 
 
-print(table)
+print(enviroment.sars)
