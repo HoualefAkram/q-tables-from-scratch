@@ -1,7 +1,7 @@
 from q_value import QValue
 from environment import Enviroment
 from utils import Utils
-from random import choice
+from random import choice, random
 
 
 class QTable:
@@ -17,19 +17,35 @@ class QTable:
     def __repr__(self):
         return f"QTable(q_values: {self.q_values})"
 
-    def train(self, episodes: int, learning_rate: float, discount_factor: float):
+    def train(
+        self,
+        episodes: int,
+        learning_rate: float,
+        discount_factor: float,
+        epsilon: float = 0.1,
+    ):
         for episode in range(episodes):
             print(f"Episode {episode}/{episodes}")
             run = True
-            current_state = choice(self.enviroment.states)  # start point
+            current_state = choice(
+                [s for s in self.enviroment.states if not s.is_terminal]
+            )  # start point
 
             steps = 0  # safety in case of an infinite loop
             max_steps = 400
 
             while run:
-                random_action = choice(self.enviroment.actions)
+
+                if random() < epsilon:
+                    # random action
+                    chosen_action = choice(self.enviroment.actions)
+                else:
+                    # best action
+                    qs = [q for q in self.q_values if q.state == current_state]
+                    chosen_action = max(qs, key=lambda x: x.value).action
+
                 sar = Utils.get_sar(
-                    action=random_action,
+                    action=chosen_action,
                     state=current_state,
                     sars=self.enviroment.sars,
                 )
@@ -42,7 +58,7 @@ class QTable:
                 current_q = [
                     q
                     for q in self.q_values
-                    if (q.state == current_state and q.action == random_action)
+                    if (q.state == current_state and q.action == chosen_action)
                 ][0]
                 q_val = current_q.value + learning_rate * (
                     reward + discount_factor * max_q_next_state - current_q.value

@@ -22,3 +22,7 @@ enviroment = Enviroment(n_state=16, n_action=4, rewards=rewards, terminal_state_
 table = QTable(enviroment=enviroment)
 
 table.train(episodes=1000, learning_rate=0.01, discount_factor=0.9)
+
+for q in table.q_values:
+    if q.state.id == 13:
+        print(q)
