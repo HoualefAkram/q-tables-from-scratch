@@ -15,3 +15,15 @@ class QValue:
 
     def __str__(self):
         return f"q[{self.state.id},{self.action.id}] = {self.value}\n"
+
+    def copyWith(
+        self,
+        state: Optional[State] = None,
+        action: Optional[Action] = None,
+        value: Optional[float] = None,
+    ):
+        return QValue(
+            action=action if action != None else self.action,
+            state=state if state != None else self.state,
+            initial_val=value if value != None else self.value,
+        )
