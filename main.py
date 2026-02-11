@@ -5,8 +5,6 @@ from sar import Sar
 from state import State
 from action import Action
 
-actions_description = ["Move Left", "Move Down", "Move Right", "Move Up"]
-
 
 sars = [
     # state 1
@@ -59,6 +57,3 @@ table = QTable(enviroment=enviroment)
 
 
 print(table)
-
-print(enviroment.actions)
-print(enviroment.states)
