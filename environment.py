@@ -17,10 +17,10 @@ class Enviroment:
         if n_state * n_action != len(rewards):
             raise Exception("n_state * n_action != len(rewards)")
 
-        self.sars = []
-        self.actions = []
-        self.states = []
-        self.terminal_state_id = terminal_state_id
+        self.sars: list[Sar] = []
+        self.actions: list[Action] = []
+        self.states: list[State] = []
+        self.terminal_state_id: int = terminal_state_id
 
         for s in range(n_state):
             for a in range(n_action):
