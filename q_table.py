@@ -8,8 +8,8 @@ class QTable:
     def __init__(self, enviroment: Enviroment):
         self.q_values: list[QValue] = []
         self.enviroment = enviroment
-        for action in enviroment.actions:
-            for state in enviroment.states:
+        for state in enviroment.states:
+            for action in enviroment.actions:
                 q_value: QValue = QValue(state=state, action=action)
                 self.q_values.append(q_value)
 
@@ -18,7 +18,7 @@ class QTable:
 
     def train(self, iterations: int, learning_rate: float, discount_factor: float):
         for i in range(iterations):
-            print(f"iteration: {i}/{iterations}")
+            # print(f"iteration: {i}/{iterations}")
             counter = 0
             for q in self.q_values:
                 next_state_id = q.state.id + 1

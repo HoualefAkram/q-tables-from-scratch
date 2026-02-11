@@ -24,5 +24,5 @@ table = QTable(enviroment=enviroment)
 table.train(iterations=1000, learning_rate=0.01, discount_factor=0.9)
 
 for q in table.q_values:
-    if q.state.id == 1:
+    if q.state.id == 15:
         print(q)
