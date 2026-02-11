@@ -6,7 +6,10 @@ from typing import Optional
 class Enviroment:
 
     def __init__(
-        self, n_actions: int, n_states: int, descriptions: Optional[list[str]] = None
+        self,
+        n_actions: int,
+        n_states: int,
+        actions_description: Optional[list[str]] = None,
     ):
         self.actions = []
         self.states = []
@@ -15,7 +18,11 @@ class Enviroment:
             self.actions.append(
                 Action(
                     id=a,
-                    description=descriptions[a] if descriptions is not None else None,
+                    description=(
+                        actions_description[a]
+                        if actions_description is not None
+                        else None
+                    ),
                 )
             )
 
