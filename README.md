@@ -37,7 +37,7 @@ The environment is a square grid where:
 
 ---
 
-## 🧠 Learning Algorithm
+## Learning Algorithm
 
 The agent learns using **Tabular Q-Learning**:
 
@@ -53,7 +53,7 @@ Where:
 
 ---
 
-## 🎲 Exploration Strategy
+## Exploration Strategy
 
 Epsilon-greedy is used for balancing exploration and exploitation:
 
